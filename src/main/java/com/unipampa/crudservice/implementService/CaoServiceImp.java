@@ -1,6 +1,6 @@
-package com.unipampa.crudservice.implement;
+package com.unipampa.crudservice.implementService;
 
-import com.unipampa.crudservice.interfaces.ICaoService;
+import com.unipampa.crudservice.interfaceService.ICaoService;
 import com.unipampa.crudservice.model.Cao;
 import com.unipampa.crudservice.repository.CaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;

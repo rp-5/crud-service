@@ -1,4 +1,4 @@
-package com.unipampa.crudservice.reresources;
+package com.unipampa.crudservice.resources;
 
 import com.unipampa.crudservice.dto.CaoDTO;
 import com.unipampa.crudservice.model.Cao;
@@ -30,8 +30,5 @@ public class CaoResource {
         cao.setSexo(dto.getSexo());
         repository.save(cao);
         return ResponseEntity.ok(cao);
-
     }
-
-
 }

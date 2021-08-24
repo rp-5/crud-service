@@ -1,9 +1,8 @@
-package com.unipampa.crudservice.interfaces;
+package com.unipampa.crudservice.interfaceService;
 
 import com.unipampa.crudservice.model.Cao;
-import org.springframework.stereotype.Service;
 
-@Service
+
 public interface ICaoService {
 
     public void salvarCao(Cao cao);

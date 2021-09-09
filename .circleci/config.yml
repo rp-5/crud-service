@@ -80,7 +80,7 @@ workflows:
           filters:
             branches:
               only: develop
-              ignore: /^(pull\/).*$/
+              ignore: /pull\/.*/
        
       - Deploy-in-staging:
           requires:
@@ -89,7 +89,7 @@ workflows:
           filters:
             branches:
               only: /release\/.*/
-              ignore: /^(pull\/).*$/
+              ignore: /pull\/.*/
 
       - Deploy-in-production:
           requires:
@@ -99,4 +99,4 @@ workflows:
           filters:
             branches:
               only: main
-              ignore: /^(pull\/).*$/
+              ignore: /pull\/.*/

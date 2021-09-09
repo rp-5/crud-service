@@ -1,7 +1,17 @@
 version: 2.1
 
 jobs:
-  build:  
+#   start-docker:
+#     working_directory: ~/repo
+#     machine: 
+#       image: ubuntu-2004:202010-01
+#     steps:
+#       - checkout
+#       - run:
+#           name: Start docker
+#           command: docker-compose up -d
+  Build:
+    working_directory: ~/repo
     docker:
       - image: cimg/openjdk:11.0
     steps:
@@ -9,21 +19,34 @@ jobs:
       - run:
           name: Build
           command: mvn -B -DskipTests clean package
-  test:
+  Tests:
+    working_directory: ~/repo
     docker:
       - image: cimg/openjdk:11.0
+      - image: circleci/mysql:latest
+        environment:
+          MYSQL_ROOT_PASSWORD: admin
+          MYSQL_DATABASE: crud_db
     steps:
       - checkout
       - run:
           name: Test
           command: mvn test
-  deploy-develop:
+  Deploy-in-develop:
     docker:
       - image: cimg/openjdk:11.0
 
     steps:
       - checkout
-  deploy-prod:
+   
+  Deploy-in-staging:
+    docker:
+      - image: cimg/openjdk:11.0
+
+    steps:
+      - checkout
+
+  Deploy-in-production:
     docker:
       - image: cimg/openjdk:11.0
 
@@ -32,36 +55,42 @@ jobs:
 
 workflows:
   version: 2
-  build-and-deploy-on-hold:
+  Build-Test-Deploy:
     jobs:
-      - build:
-          filters:
-            branches:
-              only:
-                - main
-                - develop
-
-      - test:
+#       - start-docker
+      - Build
+      - Tests:
           requires:
-            - build
+            - Build
 
       - hold:
           type: approval
           requires:
-            - test
-
-      - deploy-develop:
+            - Tests
+          filters:
+            branches:
+              only: main
+          
+      - Deploy-in-develop:
           requires:
-            - test
-            - build
+            - Tests
+            - Build
           filters:
             branches:
               only: develop
-
-      - deploy-prod:
+       
+      - Deploy-in-staging:
           requires:
-            - build
-            - test
+            - Tests
+            - Build
+          filters:
+            branches:
+              only: /release\/.*/
+
+      - Deploy-in-production:
+          requires:
+            - Build
+            - Tests
             - hold
           filters:
             branches:

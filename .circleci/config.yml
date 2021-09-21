@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  heroku: circleci/heroku@1.2.6
+
 jobs:
 #   start-docker:
 #     working_directory: ~/repo
@@ -49,29 +52,38 @@ jobs:
           command: mvn test
 
   Deploy-in-develop:
-    docker:
-      - image: cimg/openjdk:11.0
-
+    executor: heroku/default
+    environment:
+      HEROKU_APP_NAME: "crud-service-develop"
+      HEROKU_API_KEY: 4fa609ea-7634-4aab-acfc-d4ee72612b2b
     steps:
       - checkout
+      - heroku/install
+      - heroku/deploy-via-git
    
   Deploy-in-staging:
-    docker:
-      - image: cimg/openjdk:11.0
-
+    executor: heroku/default
+    environment:
+      HEROKU_APP_NAME: "crud-service-staging"
+      HEROKU_API_KEY: 4fa609ea-7634-4aab-acfc-d4ee72612b2b
     steps:
       - checkout
+      - heroku/install
+      - heroku/deploy-via-git
 
   Deploy-in-production:
-    docker:
-      - image: cimg/openjdk:11.0
-
+    executor: heroku/default
+    environment:
+      HEROKU_APP_NAME: "crud-service"
+      HEROKU_API_KEY: 4fa609ea-7634-4aab-acfc-d4ee72612b2b
     steps:
       - checkout
+      - heroku/install
+      - heroku/deploy-via-git
 
 workflows:
   version: 2
-  Build-Test-Deploy:
+  Build-Test:
     jobs:
 #     - start-docker
       - Build
@@ -86,7 +98,7 @@ workflows:
           filters:
             branches:
               only: main
-          
+              
       - Deploy-in-develop:
           requires:
             - Tests

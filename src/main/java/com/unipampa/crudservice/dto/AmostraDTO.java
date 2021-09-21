@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,11 +19,11 @@ public class AmostraDTO {
     private Long numero;
     private Boolean lvc;
     private Boolean morreu;
-    private Cao cao;
+    private List<Cao> caes;
     private Proprietario proprietario;
-    private Localizacao localizacao;
-    private Sintoma sintoma;
-    private Exame exame;
+    private List<Localizacao> localizacoes;
+    private List<Sintoma> sintomas;
+    private List<Exame> exames;
     private Acao acao;
     private Amostra amostra;
 }

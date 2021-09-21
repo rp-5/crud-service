@@ -1,18 +1,16 @@
 package com.unipampa.crudservice.model;
 
-import java.util.Set;
+import lombok.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import lombok.Data;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Proprietario {
 
   @Id
@@ -20,8 +18,13 @@ public class Proprietario {
   private Long id;
 
   private String nome;
-  @OneToMany(mappedBy = "proprietario", cascade = CascadeType.ALL)
-  private Set<Localizacao> localizacao;
-  @OneToMany(mappedBy = "proprietario", cascade = CascadeType.ALL)
-  private Set<Cao> cao;
+
+  @OneToOne
+  private Amostra amostra;
+
+  @OneToMany
+  private List<Localizacao> localizacoes;
+
+  @OneToMany
+  private List<Cao> caes;
 }

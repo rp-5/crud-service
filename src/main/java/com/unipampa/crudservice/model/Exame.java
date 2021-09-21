@@ -1,18 +1,18 @@
 package com.unipampa.crudservice.model;
 
+import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
-import lombok.Data;
+import lombok.*;
 
 @Data
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Exame {
 
   @Id
@@ -21,6 +21,6 @@ public class Exame {
 
   private String nome;
 
-  @OneToMany(mappedBy = "exame", cascade = CascadeType.ALL)
-  private Set<AmostraExame> amostraExame;
+  @ManyToOne
+  private Amostra amostra;
 }

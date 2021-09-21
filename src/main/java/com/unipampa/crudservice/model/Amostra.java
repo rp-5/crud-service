@@ -1,38 +1,38 @@
 package com.unipampa.crudservice.model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
-import lombok.Data;
+import lombok.*;
 
 @Data
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Amostra {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-
-  private Long amostra;
+  private Long numAmostra;
   private Date data;
-  private Long numero;
   private Boolean lvc;
   private Boolean morreu;
 
-  @OneToMany(mappedBy = "amostra", cascade = CascadeType.ALL)
-  private Set<AmostraSintoma> amostraSintoma;
+  @OneToOne
+  private Proprietario proprietario;
 
-  @OneToMany(mappedBy = "amostra", cascade = CascadeType.ALL)
-  private Set<AmostraAcao> amostraAcao;
+  @OneToOne
+  private Acao acao;
 
-  @OneToMany(mappedBy = "amostra", cascade = CascadeType.ALL)
-  private Set<AmostraExame> amostraExame;
+  @OneToMany
+  private List<Sintoma> sintomas;
+
+  @OneToMany
+  private List<Exame> exames;
 
 }

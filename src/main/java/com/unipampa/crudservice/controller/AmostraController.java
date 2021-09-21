@@ -1,15 +1,16 @@
 package com.unipampa.crudservice.controller;
 
 import com.unipampa.crudservice.dto.AmostraDTO;
-import com.unipampa.crudservice.interfaces.ICaoService;
-import com.unipampa.crudservice.interfaces.ILocalizacaoService;
-import com.unipampa.crudservice.interfaces.IProprietarioService;
+import com.unipampa.crudservice.interfaces.*;
 import com.unipampa.crudservice.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/salvar")
@@ -24,81 +25,79 @@ public class AmostraController {
     @Autowired
     private ILocalizacaoService localizacaoService;
 
+    @Autowired
+    private IExameService exameService;
+
+    @Autowired
+    private ISintomaService sintomaService;
+
+    @Autowired
+    private IAmostraService amostraService;
+
+    @Autowired
+    private IAcaoService acaoService;
 
     @PostMapping("/geral")
     public void salvarGeral(@RequestBody AmostraDTO dto){
-//        Localizacao localizacao = caputurarLocalizacao(dto);
-//        Proprietario proprietario = caputurarProprietario(dto);
-//        Cao cao = caputurarCao(dto);
-//        Exame exame = caputurarExame(dto);
-//        Acao acao = caputurarAcao(dto);
-//        Sintoma sintoma = caputurarSintoma(dto);
+
+        Proprietario proprietario = caputurarProprietario(dto);
+        Acao acao = caputurarAcao(dto);
         Amostra amostra = caputurarAmostra(dto);
 
-//        proprietario.setLocalizacao(localizacao);
-//        amostra.setExame(exame);
-//        amostra.setAcao(acao);
-//        amostra.setSintoma(sintoma);
+        List<Localizacao> localizacoes = dto.getProprietario().getLocalizacoes().stream().collect(Collectors.toList());
+        List<Exame> exames = dto.getExames().stream().collect(Collectors.toList());
+        List<Sintoma> sintomas = dto.getSintomas().stream().collect(Collectors.toList());
+        List<Cao> caes = dto.getProprietario().getCaes().stream().collect(Collectors.toList());
 
-//        caoService.salvarCao(cao);
-//        proprietarioService.salvarProprietario(proprietario);
-//        localizacaoService.salvarLocalizacao(localizacao);
+        proprietario.setLocalizacoes(localizacoes);
+        proprietario.setCaes(caes);
+        amostra.setExames(exames);
+        amostra.setAcao(acao);
+        amostra.setSintomas(sintomas);
+        amostra.setProprietario(proprietario);
+
+        salvarCaes(caes);
+        salvarLocalizacoes(localizacoes);
+        salvarExames(exames);
+        salvarSintomas(sintomas);
+        acaoService.salvarAcao(acao);
+        proprietarioService.salvarProprietario(proprietario);
+        amostraService.salvarAmostra(amostra);
+        System.out.println("cheguei aqui");
+    }
+
+    public void salvarCaes(List<Cao> caes){
+        caes.stream().forEach(e -> caoService.salvarCao(e));
+    }
+
+    public void salvarLocalizacoes(List<Localizacao> localizacoes){
+        localizacoes.stream().forEach(e -> localizacaoService.salvarLocalizacao(e));
+    }
+
+    public void salvarSintomas(List<Sintoma> sintomas){
+        sintomas.stream().forEach(e -> sintomaService.salvarSintoma(e));
+    }
+
+    public void salvarExames(List<Exame> exames) {
+        exames.stream().forEach(e -> exameService.salvarExame(e));
     }
 
     public Amostra caputurarAmostra(AmostraDTO dto){
         Amostra amostra = new Amostra();
-//        amostra.setNumero(dto.getAmostra().getNumero());
         amostra.setLvc(dto.getAmostra().getLvc());
         amostra.setMorreu(dto.getAmostra().getMorreu());
         return amostra;
     }
 
-//    public Sintoma caputurarSintoma(AmostraDTO dto){
-//        Sintoma sintoma = new Sintoma();
-//        sintoma.setNome(dto.getSintoma().getNome());
-//        return sintoma;
-//    }
+    public Acao caputurarAcao(AmostraDTO dto){
+        Acao acao = new Acao();
+        acao.setNome(dto.getAcao().getNome());
+        return acao;
+    }
 
-//    public Acao caputurarAcao(AmostraDTO dto){
-//        Acao acao = new Acao();
-//        acao.setNome(dto.getAcao().getNome());
-//        return acao;
-//    }
-
-//    public Exame caputurarExame(AmostraDTO dto){
-//        Exame exame = new Exame();
-//        exame.setNome(dto.getExame().getNome());
-//        return exame;
-//    }
-
-//    public Cao caputurarCao(AmostraDTO dto){
-//        Cao cao = new Cao();
-//        cao.setNome(dto.getCao().getNome());
-//        cao.setRaca(dto.getCao().getRaca());
-//        cao.setSexo(dto.getCao().getSexo());
-//        cao.setIdade(dto.getCao().getIdade());
-//        cao.setVacina(dto.getCao().getVacina());
-//        cao.setUsaColeira(dto.getCao().getUsaColeira());
-//        return cao;
-//    }
-
-
-
-//    public Proprietario caputurarProprietario(AmostraDTO dto){
-//        Proprietario proprietario = new Proprietario();
-//        proprietario.setNome(dto.getProprietario().getNome());
-//        proprietario.setCaes(dto.getProprietario().getCaes());
-//        return proprietario;
-//    }
-
-//    public Localizacao caputurarLocalizacao(AmostraDTO dto){
-//        Localizacao localizacao = new Localizacao();
-//        localizacao.setEndereco(dto.getLocalizacao().getEndereco());
-//        localizacao.setComplemento(dto.getLocalizacao().getComplemento());
-//        localizacao.setBairro(dto.getLocalizacao().getBairro());
-//        localizacao.setArea(dto.getLocalizacao().getArea());
-//        localizacao.setLatitude(dto.getLocalizacao().getLatitude());
-//        localizacao.setLongitude(dto.getLocalizacao().getLongitude());
-//        return localizacao;
-//    }
+    public Proprietario caputurarProprietario(AmostraDTO dto){
+        Proprietario proprietario = new Proprietario();
+        proprietario.setNome(dto.getProprietario().getNome());
+        return proprietario;
+    }
 }

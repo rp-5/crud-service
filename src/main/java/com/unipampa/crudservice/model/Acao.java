@@ -2,12 +2,7 @@ package com.unipampa.crudservice.model;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import lombok.*;
 
@@ -25,6 +20,6 @@ public class Acao {
 
   private String nome;
 
-  @OneToMany(mappedBy = "acao", cascade = CascadeType.ALL)
-  private Set<AmostraAcao> amostraAcao;
+  @OneToOne
+  private Amostra amostra;
 }

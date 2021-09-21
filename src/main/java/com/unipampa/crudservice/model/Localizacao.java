@@ -4,6 +4,8 @@ import javax.persistence.*;
 
 import lombok.*;
 
+
+
 @Data
 @Entity
 @Getter
@@ -23,8 +25,7 @@ public class Localizacao {
   private Float latitude;
   private Float longitude;
 
-//  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//  @OneToOne (cascade = CascadeType.PERSIST)
-//  @JoinColumn(name = "proprietario_id")
-//  private Proprietario proprietario;
+  @ManyToOne
+  private Proprietario proprietario;
+
 }

@@ -29,8 +29,10 @@ public class Amostra {
   @OneToOne
   private Acao acao;
 
-//  private List<Sintoma> sintomas;
-//
-//  private List<Exame> exames;
+  @OneToMany
+  private List<Sintoma> sintomas;
+
+  @OneToMany
+  private List<Exame> exames;
 
 }

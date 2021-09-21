@@ -26,8 +26,4 @@ public class Cao {
   @ManyToOne
   private Proprietario proprietario;
 
-//  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//  @OneToOne(cascade = CascadeType.PERSIST)
-//  @JoinColumn(name = "proprietario_id")
-//  private Proprietario proprietario;
 }

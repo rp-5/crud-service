@@ -20,14 +20,11 @@ public class Proprietario {
   private String nome;
 
   @OneToOne
-  @JoinColumn(name = "num_amostra")
   private Amostra amostra;
 
-//  @OneToOne (cascade = CascadeType.PERSIST)
-//  private Localizacao localizacao;
-//  @OneToMany(mappedBy = "proprietario", cascade = CascadeType.ALL)
-//  private Set<Localizacao> localizacao;
+  @OneToMany
+  private List<Localizacao> localizacoes;
 
-//  @OneToMany
-//  private List<Cao> caes;
+  @OneToMany
+  private List<Cao> caes;
 }

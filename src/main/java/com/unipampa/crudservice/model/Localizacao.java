@@ -1,28 +1,37 @@
 package com.unipampa.crudservice.model;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Data;
 
-import lombok.*;
+import javax.persistence.*;
 
 
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Localizacao {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
+  @Column(nullable = false, length = 150)
   private String endereco;
+
+  @Column(nullable = false, length = 50)
   private String complemento;
+
+  @Column(nullable = false, length = 50)
   private String bairro;
+
+  @Column(nullable = false, length = 50)
   private String area;
+
+  @Column(nullable = false)
   private Float latitude;
+
+  @Column(nullable = false)
   private Float longitude;
 
   @ManyToOne

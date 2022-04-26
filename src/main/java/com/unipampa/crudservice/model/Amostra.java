@@ -1,26 +1,30 @@
 package com.unipampa.crudservice.model;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Data;
 
 import javax.persistence.*;
-
-import lombok.*;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Amostra {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long numAmostra;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private UUID numAmostra;
+
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
   private Date data;
+
+  @Column(nullable = false)
   private Boolean lvc;
+
+  @Column(nullable = false)
   private Boolean morreu;
 
   @OneToOne

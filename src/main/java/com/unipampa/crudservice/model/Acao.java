@@ -1,23 +1,21 @@
 package com.unipampa.crudservice.model;
 
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Data;
 
 import javax.persistence.*;
-
-import lombok.*;
+import java.util.UUID;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Acao {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private UUID id;
 
+  @Column(nullable = false, unique = true, length = 50)
   private String nome;
 
   @OneToOne

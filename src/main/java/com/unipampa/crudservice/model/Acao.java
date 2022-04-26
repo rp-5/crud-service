@@ -4,20 +4,20 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "tb_acao")
 public class Acao {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Column(nullable = false, unique = true, length = 50)
   private String nome;
 
   @OneToOne

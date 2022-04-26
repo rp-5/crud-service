@@ -63,7 +63,6 @@ public class AmostraController {
         acaoService.salvarAcao(acao);
         proprietarioService.salvarProprietario(proprietario);
         amostraService.salvarAmostra(amostra);
-        System.out.println("cheguei aqui");
     }
 
     public void salvarCaes(List<Cao> caes){

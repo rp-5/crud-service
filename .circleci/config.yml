@@ -30,7 +30,7 @@ jobs:
       - image: circleci/mysql:latest
         environment:
           MYSQL_ROOT_PASSWORD: admin
-          MYSQL_DATABASE: crud_db
+          MYSQL_DATABASE: pampacare_db
     steps:
       - checkout
 #     Temporary

@@ -1,27 +1,30 @@
 package com.unipampa.crudservice.model;
 
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import lombok.Data;
+import javax.persistence.*;
+import java.util.List;
+import java.util.UUID;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 public class Proprietario {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private UUID id;
 
+  @Column(nullable = false, length = 50)
   private String nome;
-  @OneToMany(mappedBy = "proprietario", cascade = CascadeType.ALL)
-  private Set<Localizacao> localizacao;
-  @OneToMany(mappedBy = "proprietario", cascade = CascadeType.ALL)
-  private Set<Cao> cao;
+
+  @OneToOne
+  private Amostra amostra;
+
+  @OneToMany
+  private List<Localizacao> localizacoes;
+
+  @OneToMany
+  private List<Cao> caes;
 }

@@ -1,32 +1,40 @@
 package com.unipampa.crudservice.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
+import javax.persistence.*;
+
+
+
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 public class Localizacao {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
+  @Column(nullable = false, length = 150)
   private String endereco;
+
+  @Column(nullable = false, length = 50)
   private String complemento;
+
+  @Column(nullable = false, length = 50)
   private String bairro;
+
+  @Column(nullable = false, length = 50)
   private String area;
+
+  @Column(nullable = false)
   private Float latitude;
+
+  @Column(nullable = false)
   private Float longitude;
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  @JoinColumn(name = "proprietario_id")
+  @ManyToOne
   private Proprietario proprietario;
+
 }

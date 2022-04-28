@@ -1,26 +1,23 @@
 package com.unipampa.crudservice.model;
 
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
+import javax.persistence.*;
+import java.util.UUID;
+
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 public class Sintoma {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private UUID id;
 
+  @Column(nullable = false, length = 50)
   private String nome;
 
-  @OneToMany(mappedBy = "sintoma", cascade = CascadeType.ALL)
-  private Set<AmostraSintoma> amostraSintoma;
+  @ManyToOne
+  private Amostra amostra;
 }

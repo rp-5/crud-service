@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,7 +39,7 @@ public class AmostraController {
     private IAcaoService acaoService;
 
     @PostMapping("/geral")
-    public void salvarGeral(@RequestBody AmostraDTO dto){
+    public void salvarGeral(@RequestBody @Valid AmostraDTO dto){
 
         Proprietario proprietario = caputurarProprietario(dto);
         Acao acao = caputurarAcao(dto);

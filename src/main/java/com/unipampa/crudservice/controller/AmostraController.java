@@ -39,7 +39,7 @@ public class AmostraController {
     private IAcaoService acaoService;
 
     @PostMapping("/geral")
-    public void salvarGeral(@RequestBody @Valid AmostraDTO dto){
+    public void salvarGeral(@RequestBody AmostraDTO dto){
 
         Proprietario proprietario = caputurarProprietario(dto);
         Acao acao = caputurarAcao(dto);

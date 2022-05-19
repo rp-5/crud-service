@@ -2,7 +2,6 @@ server:
   port: 0
   servlet:
     context-path: '/crud-service/'
-
 spring:
   application:
     name: crudService

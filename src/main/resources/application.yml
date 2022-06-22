@@ -17,8 +17,8 @@ spring:
     enabled: false
   datasource:
     url: jdbc:mysql://localhost:3306/pampacare_db?useTimezone=true&serverTimezone=UTC
-    username: root
-    password: admin
+    username: bhruno
+    password: 123321
 
 eureka:
   instance:
